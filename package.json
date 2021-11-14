@@ -1,0 +1,16 @@
+{
+  "name": "gamemaskshop",
+  "version": "1.0.0",
+  "description": "The #1 store for videogame masks",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "typescript": "^4.4.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node backend/server"
+  },
+  "author": "Mark den Toom",
+  "license": "MIT"
+}
