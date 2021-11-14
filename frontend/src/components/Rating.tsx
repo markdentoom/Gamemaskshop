@@ -1,5 +1,6 @@
 const Rating = (props: { value: number, text: string, color: string}) => {
   const { value, text, color } = props
+  // TODO clean this up
   return (
     <div className="rating">
       <span>

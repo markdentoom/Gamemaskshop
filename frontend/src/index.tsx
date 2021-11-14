@@ -3,7 +3,7 @@ import ReactDOM from "react-dom"
 // https://bootswatch.com/flatly/
 // TODO maybe make button to change styling
 import "./bootstrapflatly.min.css"
-import "./index.css"
+import "./styling_overrides.css"
 import App from "./App"
 import reportWebVitals from "./reportWebVitals"
 
