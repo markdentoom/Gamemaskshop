@@ -1,7 +1,8 @@
 import { Card } from "react-bootstrap"
 import Rating from "../components/Rating"
+import { productType } from "../Types"
 
-const Product = (props) => {
+const Product = (props: { product: productType }) => {
   const { product } = props
   return (
     <a href={`/product/${product._id}`} className="nostyle">

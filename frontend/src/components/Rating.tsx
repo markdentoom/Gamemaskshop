@@ -1,4 +1,4 @@
-const Rating = (props) => {
+const Rating = (props: { value: number, text: string, color: string}) => {
   const { value, text, color } = props
   return (
     <div className="rating">
