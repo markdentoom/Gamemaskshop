@@ -14,11 +14,7 @@ const Product = (props: { product: productType }) => {
             <strong>{product.name}</strong>
           </Card.Title>
           <Card.Text as="div">
-            <Rating
-              value={product.rating}
-              text={`${product.numReviews} reviews`}
-              color="red"
-            />
+            <Rating rating={product.rating} numReviews={product.numReviews} />
           </Card.Text>
           <Card.Text as="h3">${product.price}</Card.Text>
         </Card.Body>

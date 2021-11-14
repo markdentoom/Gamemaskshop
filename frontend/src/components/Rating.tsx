@@ -1,5 +1,9 @@
-const Rating = (props: { value: number, text: string, color: string}) => {
-  const { value, text, color } = props
+const Rating = (props: {
+  rating: number
+  numReviews: number
+  color: string
+}) => {
+  const { rating, numReviews, color } = props
   // TODO clean this up
   return (
     <div className="rating">
@@ -7,9 +11,9 @@ const Rating = (props: { value: number, text: string, color: string}) => {
         <i
           style={{ color }}
           className={
-            value >= 1
+            rating >= 1
               ? "fas fa-star"
-              : value >= 0.5
+              : rating >= 0.5
               ? "fas fa-star-half-alt"
               : "far fa-star"
           }
@@ -19,9 +23,9 @@ const Rating = (props: { value: number, text: string, color: string}) => {
         <i
           style={{ color }}
           className={
-            value >= 2
+            rating >= 2
               ? "fas fa-star"
-              : value >= 1.5
+              : rating >= 1.5
               ? "fas fa-star-half-alt"
               : "far fa-star"
           }
@@ -31,9 +35,9 @@ const Rating = (props: { value: number, text: string, color: string}) => {
         <i
           style={{ color }}
           className={
-            value >= 3
+            rating >= 3
               ? "fas fa-star"
-              : value >= 2.5
+              : rating >= 2.5
               ? "fas fa-star-half-alt"
               : "far fa-star"
           }
@@ -43,9 +47,9 @@ const Rating = (props: { value: number, text: string, color: string}) => {
         <i
           style={{ color }}
           className={
-            value >= 4
+            rating >= 4
               ? "fas fa-star"
-              : value >= 3.5
+              : rating >= 3.5
               ? "fas fa-star-half-alt"
               : "far fa-star"
           }
@@ -55,21 +59,21 @@ const Rating = (props: { value: number, text: string, color: string}) => {
         <i
           style={{ color }}
           className={
-            value >= 5
+            rating >= 5
               ? "fas fa-star"
-              : value >= 4.5
+              : rating >= 4.5
               ? "fas fa-star-half-alt"
               : "far fa-star"
           }
         ></i>
       </span>
-      <span> {text && text}</span>
+      <span> {numReviews && `${numReviews} reviews`}</span>
     </div>
   )
 }
 
 Rating.defaultProps = {
-  color: "#f8e825",
+  color: "#7B8A8B",
 }
 
 export default Rating
