@@ -1,3 +1,11 @@
+Available npm commands:
+`npm run backend`: start backend server using nodemon
+`npm run frontend`: start frontend server
+`npm run dev`: start frontend and backend server
+`npm run data:destroy`: empty database tables
+`npm run data:import`: empty database tables and populate them with test data
+
+
 Mask shop that sells the following:
 4 main Payday 2 masks
 4 masks from majora's mask https://www.etsy.com/nl/shop/MasenkoProps?ref=simple-shop-header-name&listing_id=652549477
