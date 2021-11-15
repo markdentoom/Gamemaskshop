@@ -2,6 +2,7 @@
   "name": "gamemaskshop",
   "version": "1.0.0",
   "description": "The #1 store for videogame masks",
+  "type": "module",
   "main": "server.js",
   "dependencies": {
     "dotenv": "^10.0.0",
