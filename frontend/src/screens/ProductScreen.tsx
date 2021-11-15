@@ -15,7 +15,7 @@ const ProductScreen = (props: { match: any }) => {
       setProduct(data)
     }
     fetchProduct()
-  })
+  }, [match])
 
   return (
     <>
