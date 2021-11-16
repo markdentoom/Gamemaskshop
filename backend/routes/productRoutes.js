@@ -2,12 +2,12 @@ import express from "express"
 import Product from "../models/productModel.js"
 import asyncHandler from "express-async-handler"
 
-const router = express.Router()
+const productRoutes = express.Router()
 
 // @desc      Fetch all products
 // @route     GET /api/products
 // @acccess   Public
-router.get(
+productRoutes.get(
   "/",
   asyncHandler(async (req, res) => {
     // asyncHandler slaps a try/catch around the function it contains
@@ -19,7 +19,7 @@ router.get(
 // @desc      Fetch single product
 // @route     GET /api/products/:id
 // @acccess   Public
-router.get(
+productRoutes.get(
   "/:id",
   asyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id)
@@ -31,4 +31,4 @@ router.get(
   })
 )
 
-export default router
+export default productRoutes

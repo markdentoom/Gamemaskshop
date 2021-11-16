@@ -10,8 +10,7 @@ import connectDB from "./config/db.js"
 dotenv.config()
 connectDB()
 
-const doYeet = async () => {
-  // Yeet everything from database
+const emptyDB = async () => {
   await Order.deleteMany()
   await Product.deleteMany()
   await User.deleteMany()
@@ -19,19 +18,18 @@ const doYeet = async () => {
 
 const destroyData = async () => {
   try {
-    await doYeet()
-
+    await emptyDB()
     console.log("Data destroyed")
     process.exit()
   } catch (error) {
     console.log(`Seeder error: ${error.message}`)
-    process.exit(1)
+    process.exit(1) // Immediately stop program with error code 1
   }
 }
 
 const importData = async () => {
   try {
-    await doYeet()
+    await emptyDB()
 
     // Import users
     const createdUsers = await User.insertMany(users)
