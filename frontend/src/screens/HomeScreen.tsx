@@ -1,33 +1,36 @@
 import { Col, Row } from "react-bootstrap"
 import Product from "../components/Product"
 import { productType } from "../Types"
-import { useState, useEffect } from "react"
-import axios from "axios"
+import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { listProducts } from "../actions/productActions"
 
 const HomeScreen = () => {
-  // Instantiate products and set it to an empty array
-  const [products, setProducts] = useState([])
+  const dispatch = useDispatch()
+  const productList = useSelector((state: any) => state.productList)
+  const { loading, error, products } = productList
 
   // useEffect is triggered the moment the component loads
   useEffect(() => {
-    const fetchProducts = async () => {
-      const { data } = await axios.get("/api/products")
-      setProducts(data)
-    }
-    fetchProducts()
-    // The array below is for setgets that will trigger this function when changed
-  }, [])
+    dispatch(listProducts())
+  }, [dispatch]) // The array is for setgets that will trigger this function when changed
 
   return (
     <>
       <h1>Latest Products</h1>
-      <Row>
-        {products.map((product: productType) => (
-          <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
-            <Product product={product} />
-          </Col>
-        ))}
-      </Row>
+      {loading ? (
+        <h2>Loading...</h2>
+      ) : error ? (
+        <h3>{error}</h3>
+      ) : (
+        <Row>
+          {products.map((product: productType) => (
+            <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
+              <Product product={product} />
+            </Col>
+          ))}
+        </Row>
+      )}
     </>
   )
 }
