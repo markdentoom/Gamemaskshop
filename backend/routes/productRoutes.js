@@ -12,6 +12,7 @@ productRoutes.get(
   asyncHandler(async (req, res) => {
     // asyncHandler slaps a try/catch around the function it contains
     const products = await Product.find({}) // Empty dict gets all products
+    // throw new Error("Test error message")
     res.json(products)
   })
 )
