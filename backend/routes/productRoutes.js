@@ -26,7 +26,8 @@ productRoutes.get(
     if (product) {
       res.json(product)
     } else {
-      res.status(404).json({ errorMessage: "Product not found" })
+      // Throw when the id has a good format, but the id does not exist in the db
+      throw new Error("Product not found") // Error is 404 by default
     }
   })
 )
