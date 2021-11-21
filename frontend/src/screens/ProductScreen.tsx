@@ -1,17 +1,31 @@
 import { Link } from "react-router-dom"
-import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap"
+import { Row, Col, Image, ListGroup, Card, Button, Form } from "react-bootstrap"
 import Rating from "../components/Rating"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { listProductDetails } from "../actions/productActions"
 import Loader from "../components/Loader"
 import Message from "../components/Message"
 
-const ProductScreen = (props: { match: any }) => {
-  const { match } = props
+const ProductScreen = (props: { history: any; match: any }) => {
+  // TODO quit being lazy and fix type: any
+  const { history, match } = props
+  const [quantity, setQuantity] = useState(0)
   const dispatch = useDispatch()
   const productDetails = useSelector((state: any) => state.productDetails)
   const { loading, error, product } = productDetails
+
+  const isProductInStock = product.countInStock > 0
+
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // HACK typescript doesn't recognize a stringified number as convertable to number here
+    const result = e.target.value as unknown as number
+    setQuantity(result)
+  }
+
+  const handleSubmit = () => {
+    history.push(`/cart/${match.params.id}?quantity=${quantity}`)
+  }
 
   useEffect(() => {
     dispatch(listProductDetails(match.params.id))
@@ -63,14 +77,37 @@ const ProductScreen = (props: { match: any }) => {
                   <Row>
                     <Col>Status:</Col>
                     <Col>
-                      {product.countInStock > 0
+                      {isProductInStock
                         ? `${product.countInStock} left in stock`
                         : "Out of stock"}
                     </Col>
                   </Row>
                 </ListGroup.Item>
+                {isProductInStock && (
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>Quantity:</Col>
+                      <Col>
+                        <Form.Control
+                          as="select"
+                          value={quantity}
+                          onChange={handleQuantityChange}
+                        >
+                          {[...Array(product.countInStock).keys()].map(
+                            (x: number) => (
+                              <option key={x + 1} value={x + 1}>
+                                {x + 1}
+                              </option>
+                            )
+                          )}
+                        </Form.Control>
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+                )}
                 <ListGroup.Item>
                   <Button
+                    onClick={handleSubmit}
                     className="btn-block"
                     type="button"
                     disabled={product.countInStock === 0}
