@@ -20,13 +20,10 @@ const ProductLink = (props: {
 const CartScreen = (props: { match: any; location: any; history: any }) => {
   const { match, location, history } = props
   const productId = match.params.id
-
   // location.search === ?quantity=1
   // get just the quantity number using this ternary
   const quantity = location.search ? Number(location.search.split("=")[1]) : 1
-
   const dispatch = useDispatch()
-
   const cart = useSelector((state: { cart: any }) => state.cart)
   const { cartItems } = cart
 
@@ -36,8 +33,24 @@ const CartScreen = (props: { match: any; location: any; history: any }) => {
     }
   }, [dispatch, productId, quantity])
 
+  const total_items = cartItems.reduce(
+    (accumulator: number, item: CartItemType) => accumulator + item.quantity,
+    0
+  )
+  const total_price = cartItems
+    .reduce(
+      (acc: number, item: CartItemType) => acc + item.quantity * item.price,
+      0
+    )
+    .toFixed(2) // Maximum of two decimals to avoid JS float rounding fails
+
   const removeFromCartHandler = (id: number) => {
     console.log("remove")
+  }
+
+  const checkoutHandler = () => {
+    // Go to login if not logged in, else go to shipping
+    history.push("/login?redirect=shipping")
   }
 
   return (
@@ -109,15 +122,16 @@ const CartScreen = (props: { match: any; location: any; history: any }) => {
         <Card>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <h2>
-                Subtotal (
-                {cartItems.reduce(
-                  (accumulator: number, item: CartItemType) =>
-                    accumulator + item.quantity,
-                  0
-                )}
-                ) items
-              </h2>
+              <h2>Subtotal {total_items} items</h2>${total_price}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Button
+                style={{ width: "100%" }}
+                disabled={cartItems.length === 0}
+                onClick={checkoutHandler}
+              >
+                Proceed to checkout
+              </Button>
             </ListGroup.Item>
           </ListGroup>
         </Card>

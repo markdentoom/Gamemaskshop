@@ -107,9 +107,8 @@ const ProductScreen = (props: { history: any; match: any }) => {
                 )}
                 <ListGroup.Item>
                   <Button
+                    style={{ width: "100%" }}
                     onClick={handleSubmit}
-                    className="btn-block"
-                    type="button"
                     disabled={product.countInStock === 0}
                   >
                     Add to cart
