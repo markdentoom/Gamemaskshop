@@ -5,12 +5,25 @@ import {
   productDetailsReducer,
   productListReducer,
 } from "./reducers/productReducers"
+import { cartReducer } from "./reducers/cartReducers"
 
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
+  cart: cartReducer,
 })
-const initialState = {} // similar to MST addmodeDefaults
+const cartItemsFromStorage = localStorage.getItem("cartItems")
+const parsedCartItemsFromStorage = cartItemsFromStorage
+  ? JSON.parse(cartItemsFromStorage)
+  : []
+
+// similar to MST addmodeDefaults
+const initialState = {
+  productList: undefined,
+  productDetails: undefined,
+  cart: { cartItems: parsedCartItemsFromStorage },
+} as any
+
 const middleware = [thunk]
 
 const store = createStore(

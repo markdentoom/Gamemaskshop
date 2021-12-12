@@ -10,7 +10,7 @@ import Message from "../components/Message"
 const ProductScreen = (props: { history: any; match: any }) => {
   // TODO quit being lazy and fix type: any
   const { history, match } = props
-  const [quantity, setQuantity] = useState(0)
+  const [quantity, setQuantity] = useState(1) // default quantity to 1
   const dispatch = useDispatch()
   const productDetails = useSelector((state: any) => state.productDetails)
   const { loading, error, product } = productDetails

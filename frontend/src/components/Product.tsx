@@ -1,9 +1,9 @@
 import { Card } from "react-bootstrap"
 import Rating from "../components/Rating"
-import { productType } from "../Types"
 import { Link } from "react-router-dom"
+import { ProductType } from "../actions/productActions"
 
-const Product = (props: { product: productType }) => {
+const Product = (props: { product: ProductType }) => {
   const { product } = props
   return (
     <Link to={`/product/${product._id}`} className="nostyle">
