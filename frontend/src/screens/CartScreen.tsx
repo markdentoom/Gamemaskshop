@@ -20,7 +20,7 @@ const ProductLink = (props: {
 const CartScreen = (props: { match: any; location: any; history: any }) => {
   const { match, location, history } = props
   const productId = match.params.id
-  // location.search === ?quantity=1
+  // location.search === "?quantity=1"
   // get just the quantity number using this ternary
   const quantity = location.search ? Number(location.search.split("=")[1]) : 1
   const dispatch = useDispatch()
