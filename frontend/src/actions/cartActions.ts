@@ -1,14 +1,6 @@
 import axios from "axios"
 import { Dispatch } from "redux"
-import { CART_ADD_ITEM } from "../constants/cartConstants"
-import {
-  PRODUCT_DETAILS_FAIL,
-  PRODUCT_DETAILS_REQUEST,
-  PRODUCT_DETAILS_SUCCESS,
-  PRODUCT_LIST_FAIL,
-  PRODUCT_LIST_REQUEST,
-  PRODUCT_LIST_SUCCESS,
-} from "../constants/productConstants"
+import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "../constants/cartConstants"
 
 export const addToCart =
   (id: number, quantity: number) =>
@@ -39,46 +31,11 @@ export type CartItemType = {
   quantity: number
 }
 
-export const listProducts = () => async (dispatch: any) => {
-  try {
-    // Start with a request
-    dispatch({ type: PRODUCT_LIST_REQUEST })
-
-    // Then dispatch success if we raise no errors
-    const { data } = await axios.get("/api/products")
+export const removeFromCart =
+  (id: number) => (dispatch: Dispatch<any>, getState: any) => {
     dispatch({
-      type: PRODUCT_LIST_SUCCESS,
-      payload: data,
+      type: CART_REMOVE_ITEM,
+      payload: id,
     })
-  } catch (error: any) {
-    dispatch({
-      type: PRODUCT_LIST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
+    localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems))
   }
-}
-
-export const listProductDetails = (id: string) => async (dispatch: any) => {
-  try {
-    // Start with a request
-    dispatch({ type: PRODUCT_DETAILS_REQUEST })
-
-    // Then dispatch success if we raise no errors
-    const { data } = await axios.get(`/api/products/${id}`)
-    dispatch({
-      type: PRODUCT_DETAILS_SUCCESS,
-      payload: data,
-    })
-  } catch (error: any) {
-    dispatch({
-      type: PRODUCT_DETAILS_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
-  }
-}
